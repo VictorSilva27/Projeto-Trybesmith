@@ -13,6 +13,11 @@ export default class ProductService {
     return this.generateToken(user[0]);
   }
 
+  public async insert(body: IUser): Promise<string> {
+    const userID = await this.user.insertUser(body);
+    return this.generateToken(userID);
+  }
+
   public generateToken(user: IUser) {
     const payload = { id: user.id, username: user.username };
     return this.jwt.sign(
@@ -21,8 +26,4 @@ export default class ProductService {
       { algorithm: 'HS256', expiresIn: '1d' },
     );
   }
-  // public async insert(username: string, ): Promise<IProduct[]> {
-  //   const products = await this.user.insertUser();
-  //   return products;
-  // }
 }

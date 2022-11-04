@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import mysql from './connection';
 import { IUser } from '../interfaces/IUser';
 import { ILogin } from '../interfaces/ILogin';
@@ -17,24 +17,20 @@ export default class UserModel {
     return rows;
   }
 
-  async insertUser(nameProduct: string, amount: string) {
-    // const [{ insertId }] = await this.connection.execute(
-    //   ` 
-    //       INSERT INTO
-    //           Products (name, amount)
-    //       VALUES
-    //           (?, ?, ?)
-    //   `,
-    //   [nameProduct, amount],
-    // );
+  async insertUser(user: IUser) {
+    const { username, classe, level, password } = user;
+    const result = await this.connection.execute<ResultSetHeader>(
+      ` 
+          INSERT INTO
+          Trybesmith.Users (username, classe, level, password)
+          VALUES
+              (?, ?, ?, ?)
+      `,
+      [username, classe, level, password],
+    );
 
-    const [rows] = await this.connection.execute(`
-          SELECT
-              id, name, amount, orderId
-          FROM Products
-          WHERE id = ?
-      `, [nameProduct, amount]);
-
-    return rows;
+    const [dataInserted] = result;
+    const { insertId } = dataInserted;
+    return { id: insertId, ...user };
   }
 }
