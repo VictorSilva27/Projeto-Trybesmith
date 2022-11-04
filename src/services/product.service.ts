@@ -9,10 +9,8 @@ export default class ProductService {
     return products;
   }
 
-  // public async insertProduct(nomeProduct: string, quantia: string): Promise<IProduct[]> {
-  //   const products = await this.product.insert(nomeProduct, quantia);
-  //   console.log(products);
-    
-  //   return products;
-  // }
+  public async insertProduct(nomeProduct: string, quantia: string): Promise<IProduct> {
+    const products = await this.product.insert(nomeProduct, quantia);
+    return products;
+  }
 }

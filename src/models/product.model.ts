@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import mysql from './connection';
 import { IProduct } from '../interfaces/IProduct';
 
@@ -15,24 +15,19 @@ export default class ProductModel {
     return rows;
   }
 
-  // async insert(nameProduct: string, amount: string) {
-  //   const [{ insertId }] = await this.connection.execute(
-  //     ` 
-  //         INSERT INTO
-  //             Products (name, amount)
-  //         VALUES
-  //             (?, ?, ?)
-  //     `,
-  //     [nameProduct, amount],
-  //   );
+  async insert(nameProduct: string, amount: string): Promise<IProduct> {
+    const result = await this.connection.execute<ResultSetHeader>(
+      ` 
+          INSERT INTO
+          Trybesmith.Products (name, amount)
+          VALUES
+              (?, ?)
+      `,
+      [nameProduct, amount],
+    );
 
-  //   const [rows] = await this.connection.execute(`
-  //         SELECT
-  //             id, name, amount, orderId
-  //         FROM Products
-  //         WHERE id = ?
-  //     `, [insertId]);
-
-  //   return rows;
-  // }
+    const [dataInserted] = result;
+    const { insertId } = dataInserted;
+    return { id: insertId, name: nameProduct, amount };
+  }
 }

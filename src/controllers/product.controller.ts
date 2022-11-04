@@ -10,9 +10,9 @@ export default class ProductController {
     res.status(200).json(products);
   }
 
-  // async postProduct(req: Request, res: Response) {
-  //   const { name, amount } = req.body;
-  //   const products = await this.productService.insertProduct(name, amount);
-  //   res.status(201).json(products);
-  // }
+  async postProduct(req: Request, res: Response) {
+    const { name, amount } = req.body;
+    const products = await this.productService.insertProduct(name, amount);
+    res.status(201).json(products);
+  }
 }
