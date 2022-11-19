@@ -30,4 +30,18 @@ export default class ProductModel {
     const { insertId } = dataInserted;
     return { id: insertId, name: nameProduct, amount };
   }
+
+  async update(products: number, idOrder: number) {
+    const [result] = await this.connection.execute<ResultSetHeader>(
+      `
+      UPDATE Trybesmith.Products
+      SET orderId = ?
+      WHERE id = ?
+      `,
+      [idOrder, products],
+    );
+    const { affectedRows } = result;
+    if (affectedRows > 0) return affectedRows;
+    return false;
+  }
 }
