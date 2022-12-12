@@ -1,4 +1,4 @@
-# Projeto Trybesmith
+# Trybesmith 💻
 
 <!-- Escrita Sobre o Projeto -->
 <details>
@@ -11,11 +11,11 @@
   <summary><strong>Como iniciar o projeto na sua máquina 💻</strong></summary>
   Primeiro clone o Projeto no seu repositório local.
   
-  * `git clone git@github.com:VictorSilva27/Projeto-Trybesmith.git`
+  * `git clone git@github.com:VictorSilva27/Trybesmith.git`
   
   Agora entra no repositório local.
   
-  * `cd Projeto-Trybesmith` (Entrar no repositório clonado)
+  * `cd Trybesmith` (Entrar no repositório clonado)
   
   > Caso você tenha Visual Studio Code, `code .`
   
